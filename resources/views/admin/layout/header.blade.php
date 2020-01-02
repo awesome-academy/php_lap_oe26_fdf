@@ -5,7 +5,7 @@
                 <i class="ti-menu ti-close"></i></a>
             <a class="navbar-brand" href="">
                 <span class="logo-text">
-                     <img src="{{ config('config.logo') }}" alt="homepage" class="light-logo"/>
+                     <img src="{{ config('config.logo') }}"  class="light-logo"/>
                 </span>
             </a>
             <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
@@ -21,7 +21,7 @@
                 <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark"
                     href="javascript:void(0)"><i class="ti-search"></i></a>
                     <form class="app-search position-absolute">
-                        <input type="text" class="form-control" placeholder="Search &amp; enter">
+                        <input type="text" class="form-control">
                         <a class="srh-btn"><i class="ti-close"></i></a>
                     </form>
                 </li>
@@ -40,7 +40,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
                        href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       <img src="{{ config('config.user') }}" alt="user" class="rounded-circle" width="31">
+                       <img class="user" src="{{ config('config.user') }}" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
                         <a class="dropdown-item" href="javascript:void(0)">

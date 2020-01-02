@@ -48,13 +48,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($category as $cate)
+                                @foreach ($category as $cate)
                                     <tr>
                                         <td>{{ $cate->name }}</td>
                                         <td>{{ $cate->description }}</td>
-                                        <td>@if ($cate->parent_id == 0)
-                                            {{ trans('message.foodsCategory') }}
-                                            @else {{ trans('message.dinksCategory') }} @endif
+                                        <td>
+                                            @if ($cate->parent_id == 0)
+                                                {{ trans('message.foodsCategory') }}
+                                            @else
+                                                {{ trans('message.dinksCategory') }}
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{ route('category.edit', $cate->id) }}"
