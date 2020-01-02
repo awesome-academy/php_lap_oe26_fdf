@@ -2,10 +2,9 @@
     return [
         'category' => 'Loại sản phẩm',
         'home' => 'Trang chủ ',
-        'newproduct' => 'Sản phẩm mới',
+        'newproduct' => 'Sản phẩm ',
         'otherproduct' => 'Sản phẩm khác',
         'detail' => 'Chi tiết sản phẩm',
-        'promotionproduct' => 'Sản phẩm khuyến mãi',
         'product' => 'Sản phẩm',
         'description' => 'Mô tả ',
         'qty' => 'Số lượng:',
@@ -53,5 +52,16 @@
         'falseProduct' => 'Hết sản phẩm',
         'actionProduct' => 'Chọn nhóm sản phẩm',
         'actionStatus' => 'Chọn trạng thái',
+        'imageAdmin' => 'Quản lý ảnh sản phẩm',
+        'image' => 'Danh sách ảnh sản phẩm',
+        'createImage' => 'Thêm ảnh sản phẩm',
+        'editImage' => 'Sửa ảnh sản phẩm',
+        'nameImage' => 'Tên ảnh sản phẩm',
+        'productImage' => 'Sản phẩm',
+        'actionimageProduct' => 'Chọn sản phẩm',
+        'errorProduct' => 'Sản phẩm không tồn tại',
+        'errorImage' => 'Ảnh không tồn tại',
+        'mime' => 'Chọn ảnh theo định dạng jpeg,jpg,png',
+        'imageUp' => 'Chọn ảnh tải lên ',
     ];
 ?>

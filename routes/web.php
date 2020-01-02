@@ -14,3 +14,11 @@
 Route::group(['namespace' => 'Admin'], function() {
     Route::resource('category', 'CategoryController');
 });
+
+Route::group(['namespace' => 'Admin'], function() {
+    Route::resource('product', 'ProductController');
+});
+
+Route::group(['namespace' => 'Admin'], function() {
+    Route::resource('image', 'ImageController');
+});
