@@ -18,7 +18,6 @@ public/css/*
 public/svg/*
 public/storage/*
 .bowerrc
-bower.json
 webpack.mix.js
 
 
