@@ -12,3 +12,13 @@ npm-debug.log
 yarn-error.log
 .env
 .phpunit.result.cache
+public/bower_components/
+public/js/*
+public/css/*
+public/svg/*
+public/storage/*
+.bowerrc
+bower.json
+webpack.mix.js
+
+
