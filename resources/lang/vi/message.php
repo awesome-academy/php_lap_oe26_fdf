@@ -53,5 +53,10 @@
         'falseProduct' => 'Hết sản phẩm',
         'actionProduct' => 'Chọn nhóm sản phẩm',
         'actionStatus' => 'Chọn trạng thái',
+        'content' => 'Tìm thấy',
+        'contentproduct' => 'sản phẩm',
+        '$' => 'VNĐ',
+        'total' => 'Tổng tiền:',
+        'ckeckout' => 'Đặt hàng',
     ];
 ?>

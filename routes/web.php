@@ -14,3 +14,9 @@
 Route::group(['namespace' => 'Admin'], function() {
     Route::resource('category', 'CategoryController');
 });
+
+Route::group(['namespace' => 'Client'], function() {
+    Route::get('/', 'PageController@getIndex')->name('index');
+    Route::get('about', 'PageController@getAbout')->name('about');
+    Route::get('contact', 'PageController@getContact')->name('contact');
+});
