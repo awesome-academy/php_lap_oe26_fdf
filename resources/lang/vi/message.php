@@ -63,5 +63,10 @@
         'errorImage' => 'Ảnh không tồn tại',
         'mime' => 'Chọn ảnh theo định dạng jpeg,jpg,png',
         'imageUp' => 'Chọn ảnh tải lên ',
+        'content' => 'Tìm thấy',
+        'contentproduct' => 'sản phẩm',
+        '$' => 'VNĐ',
+        'total' => 'Tổng tiền:',
+        'ckeckout' => 'Đặt hàng',
     ];
 ?>
