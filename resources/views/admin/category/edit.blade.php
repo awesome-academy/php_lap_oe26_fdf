@@ -35,9 +35,12 @@
                         </label>
                         <div class="col-md-9">
                             <select class="select2 form-control custom-select" name="parent" required>
-                                <option value="0" @if ($category->parent_id == 0) selected @endif >{{ trans('message.foodsCategory') }}
+                                <option value="{{ config('config.zero') }}"
+                                    @if ($category->parent_id == config('config.zero')) selected @endif >{{ trans('message.foodsCategory') }}
                                 </option>
-                                <option value="1" @if ($category->parent_id == 1) selected @endif >{{ trans('message.dinksCategory') }}
+                                <option value="{{ config('config.one') }}"
+                                    @if ($category->parent_id == config('config.one')) selected
+                                    @endif >{{ trans('message.dinksCategory') }}
                                 </option>
                             </select>
                             <span class=" alert-danger">{{ $errors->first('parent') }}</span>

@@ -1,16 +1,15 @@
  @extends('admin.layout.master')
- @section('title', trans('message.categoryAdmin'))
+ @section('title', trans('message.imageAdmin'))
  @section('content')
  <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h3 class="page-title">{{ trans('message.category') }}</h3>
+            <h3 class="page-title">{{ trans('message.image') }}</h3>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">{{ trans('message.home') }}</li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            {{ trans('message.category') }}
+                        <li class="breadcrumb-item active" aria-current="page">{{ trans('message.image') }}
                         </li>
                     </ol>
                 </nav>
@@ -24,8 +23,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <a href="{{ route('category.create') }}">
-                            {{ trans('message.createCategory') }}
+                        <a href="{{ route('image.create') }}">
+                            {{ trans('message.createImage') }}
                         </a>
                         <div class="">&nbsp</div>
                         @if (session('success'))
@@ -41,31 +40,24 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr class="btn-info">
-                                    <th class=""> {{ trans('message.nameCategory') }}</th>
-                                    <th class="">{{ trans('message.descriptionCategory') }}</th>
-                                    <th class="">{{ trans('message.parent') }}</th>
+                                    <th class=""> {{ trans('message.nameImage') }}</th>
+                                    <th class=""> {{ trans('message.productImage') }}</th>
                                     <th class="">{{ trans('message.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($category as $cate)
+                                @foreach ($images as $image)
                                     <tr>
-                                        <td>{{ $cate->name }}</td>
-                                        <td>{{ $cate->description }}</td>
                                         <td>
-                                            @if ($cate->parent_id == config('config.zero'))
-                                                {{ trans('message.foodsCategory') }}
-                                            @else
-                                                {{ trans('message.dinksCategory') }}
-                                            @endif
+                                            <img class="image" src="{{ asset('storage/images/' . $image->image) }}">
                                         </td>
+                                        <td>{{ $image->product['name'] }}</td>
                                         <td>
-                                            <a href="{{ route('category.edit', $cate->id) }}"
-                                                class="btn btn-warning">
+                                            <a href="{{ route('image.edit', $image->id) }}" class="btn btn-warning">
                                                 <span class="fa fa-edit"> {{ trans('message.btnEdit') }}</span>
                                             </a>
-                                            <a data-id="{{ $cate->id }}" data-url="{{ route('category.destroy', $cate->id) }}"
-                                                class=" delete btn btn-danger">
+                                            <a data-id="{{ $image->id }}" class="delete btn btn-danger"
+                                                data-url="{{ route('image.destroy', $image->id) }}" >
                                                 <span class="fa fa-trash"></span>
                                                 {{ trans('message.btnDelete') }}
                                             </a>
