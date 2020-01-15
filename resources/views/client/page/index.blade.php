@@ -1,10 +1,10 @@
 @extends('client.layout.master')
-@section('title', 'Trang chủ')
+@section('title', trans('message.home'))
 @section('content')
 <div class="fullwidthbanner-container">
     <div class="fullwidthbanner">
-        <div class="bannercontainer" >
-            <div class="banner" >
+        <div class="bannercontainer">
+            <div class="banner">
                 <ul>
                     <li data-transition="boxfade" data-slotamount="20" class="active-revslide">
                         <div class="slotholder"  data-duration="undefined" data-zoomstart="undefined"
@@ -85,7 +85,7 @@
                                 <div class="col-sm-3">
                                     <div class="single-item">
                                         <div class="single-item-header">
-                                            <a href="product.html">
+                                            <a href="{{ route('product.detail', $product->id) }}">
                                                 <img class="imageindex" src="{{ asset('storage/images/' . $product->images->first()->image) }}" >
                                             </a>
                                         </div>
@@ -104,10 +104,11 @@
                                         <div class="">&nbsp;</div>
                                         <div class="single-item-caption">
                                             <a class="add-to-cart pull-left"
-                                                href="">
+                                                href="{{ route('addcart', $product->id) }}">
                                                 <i class="fa fa-shopping-cart"></i>
                                             </a>
-                                            <a class="beta-btn primary" href="">
+                                            <a class="beta-btn primary"
+                                                href="{{ route('product.detail', $product->id) }}">
                                                 {{ trans('message.detail') }}
                                                 <i class="fa fa-chevron-right"></i>
                                             </a>

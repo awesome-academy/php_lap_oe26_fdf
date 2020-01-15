@@ -47,6 +47,31 @@
 .imageindex {
     height: 250px;
 }
+.img-responsive {
+    height: 100px;
+}
 .price {
     color: red;
 }
+#cart {
+    color: red;
+}
+.quantity {
+    width: 100px;
+}
+li {
+    list-style: none;
+}
+strong {
+    color: red;
+}
+#color {
+    color: red;
+}
+a:link {
+  text-decoration: none;
+}
+.checked {
+  color: orange;
+}
+

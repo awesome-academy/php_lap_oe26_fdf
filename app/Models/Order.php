@@ -16,7 +16,7 @@ class Order extends Model
         'note',
     ];
 
-    public function oderDetails()
+    public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
     }

@@ -76,6 +76,7 @@
                         </table>
                     </div>
                 </div>
+                <div class="row">{{ $category->links() }}</div>
             </div>
         </div>
     </div>

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Product\ProductAddRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\Image;
-use App\Http\Requests\Product\ProductAddRequest;
 use App\Http\Requests\Product\ProductEditRequest;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Image\ImageRepositoryInterface;
 
 class ProductController extends Controller
 {
@@ -17,33 +17,29 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $productRepository;
+    private $categoryRepository;
+    private $imageRepository;
+
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        ImageRepositoryInterface $imageRepository
+    )
+    {
+        $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->imageRepository = $imageRepository;
+    }
+
     public function index()
     {
-        $products = Product::with(['images','category'])->get();
+        $products = $this->productRepository->getWith(['images', 'category']);
 
         return view('admin.product.index', compact('products'));
     }
 
-    public function getProductID($id)
-    {
-        $product = Product::find($id);
-        if ($product) {
-            return $product;
-        } else {
-            return redirect()->route('product.index')->with('error', trans('message.errorProduct'));
-        }
-    }
-
-    public function getImageID($product_id) {
-        $image = Image::where('product_id', $product_id)->first();
-        if ($image) {
-
-            return $image;
-        } else {
-
-            return redirect()->route('image.index')->with('error', trans('message.errorImage'));
-        }
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -51,7 +47,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data['categoris'] = Category::all();
+        $data['categoris'] = $this->categoryRepository->getAll();
 
         return view('admin.product.create', $data);
     }
@@ -64,22 +60,25 @@ class ProductController extends Controller
      */
     public function store(ProductAddRequest $request)
     {
-        $products = new Product();
-        $products->name = $request->name;
-        $products->price = $request->price;
-        $products->status = $request->status;
-        $products->description = $request->description;
-        $products->category_id = $request->category;
-        $products->save();
+        $data = $request->only([
+            'name',
+            'price',
+            'status',
+            'description',
+        ]);
+        $data['category_id'] = $request->get('category');
 
+        $product = $this->productRepository->create($data);
 
         if ($request->hasFile('images')) {
             $filename = $request->images->getClientOriginalName();
-            $images = new Image();
-            $images->image = $filename;
-            $images->product_id = $products->id;
+            $data = [
+                'image' => $filename,
+                'product_id' => $product->id,
+            ];
             $request->images->storeAs('public/images', $filename);
-            $images->save();
+
+            $this->imageRepository->create($data);
         }
 
         return redirect()->route('product.index')->with('success', trans('message.createSuccess'));
@@ -104,8 +103,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = $this->getProductID($id);
-        $categories = Category::all();
+        $product = $this->productRepository->find($id);
+        $categories = $this->categoryRepository->getAll();
         $image = $product->images;
 
         return view('admin.product.edit', compact('product', 'categories', 'image'));
@@ -120,21 +119,27 @@ class ProductController extends Controller
      */
     public function update(ProductEditRequest $request, $id)
     {
-        $products = $this->getProductID($id);
-        $products->name = $request->name;
-        $products->price = $request->price;
-        $products->status = $request->status;
-        $products->description = $request->description;
-        $products->category_id = $request->category;
-        $products->save();
-        $image = $this->getImageID($id);
-        $image->product_id = $products->id;
+        $data = $request->only([
+            'name',
+            'price',
+            'status',
+            'description',
+        ]);
+        $data['category_id'] = $request->get('category');
+
+        $product = $this->productRepository->update($data, $id);
+
+        $image = $this->imageRepository->getImageID($id);
+        $id_image = $image->id;
         if ($request->hasFile('images')) {
             $filename = $request->images->getClientOriginalName();
-            $image->image = $filename;
+            $data = [
+                'image' => $filename,
+                'product_id' => $product->id,
+            ];
             $request->images->storeAs('public/images', $filename);
         }
-        $image->save();
+        $this->imageRepository->update($data, $id_image);
 
         return redirect()->route('product.index')->with('success', trans('message.updateSuccess'));
     }
@@ -147,8 +152,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = $this->getProductID($id);
-        $product->delete();
+        $product = $this->productRepository->delete($id);
 
         return response()->json(true);
     }
