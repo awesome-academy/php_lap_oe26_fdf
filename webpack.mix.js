@@ -22,3 +22,7 @@ mix.styles([
 mix.scripts([
     'resources/js/config.js',
 ], 'public/js/all.js');
+
+mix.scripts([
+    'resources/js/client.js',
+], 'public/js/client.js');

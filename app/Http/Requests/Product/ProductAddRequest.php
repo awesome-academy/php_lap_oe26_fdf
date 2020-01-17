@@ -30,7 +30,6 @@ class ProductAddRequest extends FormRequest
             'status' => 'required',
             'category' => 'required',
             'images' => 'mimes:jpeg,jpg,png|required|max:10000',
-            'product' => 'required',
         ];
     }
 
@@ -43,7 +42,6 @@ class ProductAddRequest extends FormRequest
             'category.required' => trans('validate.Product.category'),
             'status.required' => trans('validate.Product.status'),
             'price.required' => trans('validate.Product.price'),
-            'product.required' => trans('message.actionimageProduct'),
             'images.mimes' => trans('message.mime'),
             'images.required' => trans('message.imageUp'),
         ];

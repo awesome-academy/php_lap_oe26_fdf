@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> @yield('title') </title>
     <base href="{{ asset('bower_components/template/client') }}/">
     <link rel="stylesheet" href="assets/dest/css/bootstrap.min.css">
@@ -18,6 +19,7 @@
 </head>
 <body>
 
+
     @include('client.layout.header')
 
     <div class="rev-slider">
@@ -25,7 +27,6 @@
     </div>
 
     @include('client.layout.footer')
-
     <script src="assets/dest/js/jquery.js"></script>
     <script src="assets/dest/js/bootstrap.min.js"></script>
     <script src="assets/dest/vendors/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
@@ -37,7 +38,9 @@
     <script src="assets/dest/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
     <script src="assets/dest/js/waypoints.min.js"></script>
     <script src="assets/dest/js/wow.min.js"></script>
+    <script src="assets/dest/js/scripts.min.js"></script>
     <script src="assets/dest/js/custom2.js"></script>
+    <script src="{{ asset('js/client.js') }}"></script>
 
 </body>
 </html>

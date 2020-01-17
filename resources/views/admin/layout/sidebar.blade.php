@@ -11,7 +11,7 @@
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="#"
+                        href="{{ route('user.index') }}"
                         aria-expanded="false"><i class="mdi mdi-account-box"></i>
                         <span class="hide-menu">{{ trans('message.userAdmin') }}</span>
                     </a>
@@ -32,16 +32,16 @@
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="{{ route('image.index') }}"
-                        aria-expanded="false"><i class="mdi mdi-file-image"></i>
-                        <span class="hide-menu">
-                        {{ trans('message.imageAdmin') }}</span>
+                        href="{{ route('order.index') }}"
+                        aria-expanded="false"><i class="mdi mdi-shopping"></i>
+                        <span class="hide-menu"> {{ trans('message.orderAdmin') }}</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
-                        aria-expanded="false"><i class="mdi mdi-shopping"></i>
-                        <span class="hide-menu"> {{ trans('message.orderAdmin') }}</span>
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="{{ route('suggest-admin.index') }}"
+                        aria-expanded="false"><i class="mdi mdi-food"></i>
+                        <span class="hide-menu"> {{ trans('message.suggestAdmin') }}</span>
                     </a>
                 </li>
             </ul>

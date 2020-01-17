@@ -62,8 +62,8 @@
                                         <td>{{ number_format($product->price) }}</td>
                                         <td>
                                             @if ($product->status == config('config.one'))
-                                                {{ trans('message.falseProduct') }}
-                                            @else {{ trans('message.trueProduct') }}
+                                                {{ trans('message.trueProduct') }}
+                                            @else {{ trans('message.falseProduct') }}
                                             @endif
                                         </td>
                                         <td>{{ $product->category['name'] }}</td>
@@ -82,6 +82,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="row">{{ $products->links() }}</div>
                 </div>
             </div>
         </div>

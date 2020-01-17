@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Client;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Repositories\Product\ProductRepositoryInterface;
 
 class PageController extends Controller
 {
+    private $productRepository;
+
+    public function __construct(ProductRepositoryInterface $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     public function getIndex()
     {
-        $products = Product::with('images')->orderBy('id', 'desc')->paginate(config('config.paginate'));
+        $products = $this->productRepository->getIndex();
 
         return view('client.page.index', compact('products'));
     }

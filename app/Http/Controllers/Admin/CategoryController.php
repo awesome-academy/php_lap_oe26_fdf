@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Http\Requests\Category\CategoryAddRequest;
 use App\Http\Requests\Category\CategoryEditRequest;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {
@@ -15,21 +15,18 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $data['category'] = Category::all();
+    private $categoryRepository;
 
-        return view('admin.category.index', $data);
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
     }
 
-    public function getCategoryID($id)
+    public function index()
     {
-        $categories = Category::find($id);
-        if ($categories) {
-            return $categories;
-        } else {
-            return redirect()->route('category.index')->with('error', trans('message.errorCategory'));
-        }
+        $data['category'] = $this->categoryRepository->getAll();
+
+        return view('admin.category.index', $data);
     }
 
     /**
@@ -50,11 +47,18 @@ class CategoryController extends Controller
      */
     public function store(CategoryAddRequest $request)
     {
-        $categories = new Category();
-        $categories->name = $request->name;
-        $categories->description = $request->description;
-        $categories->parent_id = $request->parent;
-        $categories->save();
+        $request = $request->only([
+            'name',
+            'description',
+            'parent',
+        ]);
+        $categories = [
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'parent_id' => $request['parent'],
+        ];
+
+        $this->categoryRepository->create($categories);
 
         return redirect()->route('category.index')->with('success', trans('message.createSuccess'));
     }
@@ -78,7 +82,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $data['category'] = $this->getCategoryID($id);
+        $data['category'] = $this->categoryRepository->find($id);
 
         return view('admin.category.edit', $data);
     }
@@ -92,11 +96,18 @@ class CategoryController extends Controller
      */
     public function update(CategoryEditRequest $request, $id)
     {
-        $categories = $this->getCategoryID($id);
-        $categories->name = $request->name;
-        $categories->description = $request->description;
-        $categories->parent_id = $request->parent;
-        $categories->save();
+        $request = $request->only([
+            'name',
+            'description',
+            'parent',
+        ]);
+        $categories = [
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'parent_id' => $request['parent'],
+        ];
+
+        $this->categoryRepository->update($categories, $id);
 
         return redirect()->route('category.index')->with('success', trans('message.updateSuccess'));
     }
@@ -109,8 +120,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $categories = $this->getCategoryID($id);
-        $categories->delete();
+        $categories = $this->categoryRepository->delete($id);
 
         return response()->json(true);
     }
